@@ -1,14 +1,13 @@
-# Dockerfile pour Next.js
-FROM node:18-alpine
+FROM node:18
 
-WORKDIR /app
+USER root
 
-COPY package*.json ./
-RUN npm install
+RUN apt-get update && \
+    apt-get install -y docker.io && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY . .
+# (optionnel) Vérifier la version
+RUN docker --version
 
-RUN npm run build
-
-EXPOSE 3000
-CMD ["npm", "start"]
+# Laisser node comme user
+USER node
