@@ -2,10 +2,9 @@ pipeline {
     agent {
         docker {
             image 'zatlou/node-docker:18'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
+            args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
-
     environment {
         DOCKER_IMAGE = "zatlou/next-cicdcd"
         TAG = "latest"
